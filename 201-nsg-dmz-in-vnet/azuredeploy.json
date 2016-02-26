@@ -313,7 +313,7 @@
       "dependsOn": [
         "[concat('Microsoft.Network/networkSecurityGroups/', parameters('FENSGName'))]",
         "[concat('Microsoft.Network/networkSecurityGroups/', parameters('AppNSGName'))]",
-        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('DBNSGName'))]"
+        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('DBNSGName'))]",
         "[concat('Microsoft.Network/networkSecurityGroups/', parameters('GWNSGName'))]"
       ],
       "properties": {

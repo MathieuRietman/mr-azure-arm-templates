@@ -11,7 +11,7 @@
     },
     "virtualNetworkName": {
       "type": "string",
-      "defaultValue": "MZWE-None Production VNet",
+      "defaultValue": "mzwe-inf-np-test-netw000",
       "metadata": {
         "description": "This is your Virtual Network"
       }

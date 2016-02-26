@@ -135,7 +135,7 @@
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "443",
-              "sourceAddressPrefix": "10.0.0.0/24",
+              "sourceAddressPrefix": "[parameters('FESubnetPrefix')]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 100,
@@ -187,7 +187,7 @@
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "1433",
-              "sourceAddressPrefix": "10.0.1.0/24",
+              "sourceAddressPrefix": "[parameters('AppSubnetPrefix')]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 100,
@@ -201,7 +201,7 @@
               "protocol": "*",
               "sourcePortRange": "*",
               "destinationPortRange": "*",
-              "sourceAddressPrefix": "10.0.0.0/24",
+              "sourceAddressPrefix": "[parameters('FESubnetPrefix')]",
               "destinationAddressPrefix": "*",
               "access": "Deny",
               "priority": 101,
@@ -215,7 +215,73 @@
               "protocol": "*",
               "sourcePortRange": "*",
               "destinationPortRange": "*",
-              "sourceAddressPrefix": "10.0.1.0/24",
+              "sourceAddressPrefix": "[parameters('AppSubnetPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Deny",
+              "priority": 102,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Block_Internet",
+            "properties": {
+              "description": "Block Internet",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "Internet",
+              "access": "Deny",
+              "priority": 200,
+              "direction": "Outbound"
+            }
+          }
+        ]
+      }
+    },
+        {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('GWNSGName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "Allow_App",
+            "properties": {
+              "description": "Allow APP Subnet",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "1433",
+              "sourceAddressPrefix": "[parameters('AppSubnetPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Block_FE",
+            "properties": {
+              "description": "Block FE Subnet",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[parameters('FESubnetPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Deny",
+              "priority": 101,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Block_App",
+            "properties": {
+              "description": "Block App Subnet",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[parameters('AppSubnetPrefix')]",
               "destinationAddressPrefix": "*",
               "access": "Deny",
               "priority": 102,
@@ -248,6 +314,7 @@
         "[concat('Microsoft.Network/networkSecurityGroups/', parameters('FENSGName'))]",
         "[concat('Microsoft.Network/networkSecurityGroups/', parameters('AppNSGName'))]",
         "[concat('Microsoft.Network/networkSecurityGroups/', parameters('DBNSGName'))]"
+        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('GWNSGName'))]"
       ],
       "properties": {
         "addressSpace": {

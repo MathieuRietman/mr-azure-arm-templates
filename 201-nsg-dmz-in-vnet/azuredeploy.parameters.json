@@ -9,16 +9,19 @@
       "value": "First_ARM_VNet"
     },
     "addressPrefix": {
-      "value": "10.0.0.0/16"
+      "value": "10.70.0.0/16"
     },
     "FESubnetPrefix": {
-      "value": "10.0.0.0/24"
+      "value": "10.70.1.0/24"
     },
     "AppSubnetPrefix": {
-      "value": "10.0.1.0/24"
+      "value": "10.70.1.0/24"
     },
     "DBSubnetPrefix": {
-      "value": "10.0.2.0/24"
+      "value": "10.70.2.0/24"
+    },
+    "GatewaySubnet": {
+      "value": "10.70.1.0/29"
     },
     "FENSGName": {
       "value": "fensg"
@@ -28,6 +31,10 @@
     },
     "DBNSGName": {
       "value": "dbnsg"
+    },
+    "GWNSGName": {
+      "value": "gwnsg"
     }
+    
   }
 }

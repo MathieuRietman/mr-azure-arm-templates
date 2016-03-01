@@ -686,6 +686,11 @@
 	    "name": "[variables('appAvailabilitySetName')]",
 	    "apiVersion": "[variables('apiVer')]",
 	    "location": "[parameters('location')]",
+        "tags": {
+        "Environment": "Development",
+        "Department": "Dep A",
+        "Owner": "Owner"
+    },
 	    "properties": {}
 	},
 	{
@@ -744,7 +749,12 @@
 	    "name": "[variables('dbAvailabilitySetName')]",
 	    "apiVersion": "2015-05-01-preview",
 	    "location": "[parameters('location')]",
-	    "properties": {}
+	    "properties": {},
+        "tags": {
+        "Environment": "Development",
+        "Department": "Dep A",
+        "Owner": "Owner"
+    }
 	},
 	{
 	    "apiVersion": "2015-05-01-preview",

@@ -17,6 +17,12 @@
         },
         "adminPassword": {
             "value": ""
-        }
+        },
+        
+         "Inputtags": {
+        "Environment": "Development",
+        "Department": "Dep A",
+        "Owner": "Owner"
+    }
     }
 }

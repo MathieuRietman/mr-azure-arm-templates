@@ -3,20 +3,20 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location": {
-            "value": "West US"
+            "value": "West Europe"
         },
         "newStorageAccountName": {
-            "value": "GEN-UNIQUE-8"
+            "value": "mzweinfnpstorage-001"
         },
         "newDBStorageAccountName":
         {
-            "value": "GEN-UNIQUE-8"
+            "value": "mzweinfnpstorage-db-001"
         },
         "adminUsername": {
-            "value": "narayan"
+            "value": "marietma"
         },
         "adminPassword": {
-            "value": "GEN-PASSWORD"
+            "value": ""
         }
     }
 }

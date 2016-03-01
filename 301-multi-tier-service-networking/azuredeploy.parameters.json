@@ -6,11 +6,11 @@
             "value": "West Europe"
         },
         "newStorageAccountName": {
-            "value": "mzweinfnpstorage-001"
+            "value": "mzweinfnpstorage001"
         },
         "newDBStorageAccountName":
         {
-            "value": "mzweinfnpstorage-db-001"
+            "value": "mzweinfnpstoragedb001"
         },
         "adminUsername": {
             "value": "marietma"

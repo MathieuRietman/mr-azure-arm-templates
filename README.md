@@ -1,2 +1,3 @@
-# mr-azure-arm-templates
-My azure arm templates repository
+## Sample templates
+
+[vmtemplate with UIdefinition](vmTemplate/readme.md)

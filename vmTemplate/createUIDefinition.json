@@ -1,0 +1,264 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+    "handler": "Microsoft.Azure.CreateUIDef",
+    "version": "0.1.2-preview",
+    "parameters": {
+        "basics": [
+            {
+                "name": "application",
+                "type": "Microsoft.Common.TextBox",
+                "label": "Application name",
+                "toolTip": "The name of the application will be used i vmname.",
+                "defaultValue": "app1",
+                "constraints": {
+                    "required": true,
+                    "regex": "^[a-z0-9A-Z-]{3,15}$",
+                    "validationMessage": "The application must be between 3 and 12 characters long and contain letters, numbers and hyphens only."
+                }
+              
+            },
+            {
+                "name": "vmIndexNumber",
+                "defaultValue": "001",
+                "type": "Microsoft.Common.TextBox",
+                "label": "VM index number",
+                "toolTip": "The index number like 001",
+                  "constraints": {
+                    "required": true,
+                    "regex": "^[0-9]{1,3}$",
+                    "validationMessage": "The index number must be like '001'."
+                }
+            },
+            {
+                "name": "environment",
+                "defaultValue": "poc",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Environment",
+                "toolTip": "Select the environment type of the application",
+                "constraints": {
+                    "allowedValues": [
+                   
+                        {
+                            "value": "prd",
+                            "label": "prd"
+                        },
+                 
+                        {
+                            "value": "acc",
+                            "label": "acc"
+                        },
+                        {
+                            "value": "tst",
+                            "label": "tst"
+                        },
+                        {
+                            "value": "poc",
+                            "label": "poc"
+                        }
+
+                    ],
+                    "required": true
+                },
+                                "visible": true
+    
+            },
+            {
+                "name": "costcenter",
+                "defaultValue": "exploitatie",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Cost center",
+                "toolTip": "Select the cost center of the application",
+                "constraints": {
+                    "allowedValues": [
+                   
+                        {
+                            "value": "exploitatie",
+                            "label": "exploitatie"
+                        },
+                 
+                        {
+                            "value": "afdelingA",
+                            "label": "afdelingA"
+                        },
+                        {
+                            "value": "afdelingB",
+                            "label": "afdelingB"
+                        },
+                        {
+                            "value": "afdelingC",
+                            "label": "afdelingC"
+                        }
+
+                    ],
+                    "required": true
+                },
+                                "visible": true
+    
+            },
+            {
+                "name": "vmName",
+                "type": "Microsoft.Common.TextBox",
+                "label": "Virtual Machine name",
+                "toolTip": "The name of the Virtual Machine.",
+                "defaultValue": "simple-vm",
+                "constraints": {
+                    "required": true,
+                    "regex": "^[a-z0-9A-Z-]{3,15}$",
+                    "validationMessage": "The VM Name must be between 3 and 15 characters long and contain letters, numbers and hyphens only."
+                },
+                "visible": true
+            },
+            {
+                "name": "adminUsername",
+                "type": "Microsoft.Compute.UserNameTextBox",
+                "label": "Username",
+                "toolTip": "Admin username for the machine",
+                "osPlatform": "Windows",
+                "constraints": {
+                    "required": true
+                },
+                "visible": true
+            },
+            {
+                "name": "password",
+                "type": "Microsoft.Common.PasswordBox",
+                "label": {
+                    "password": "Password",
+                    "confirmPassword": "Confirm password"
+                },
+                "toolTip": "Admin password for the virtual machine",
+                "constraints": {
+                    "required": true,
+                    "regex": "^(?=.*[A-Z])(?=.*[.!@#$%^&*()-_=+])(?=.*[0-9])(?=.*[a-z]).{12,40}$",
+                    "validationMessage": "Password must be at least 12 characters long, and contain upper case, lower case, number and symbol"
+                },
+                "options": {
+                    "hideConfirmation": false
+                },
+                "visible": true
+            }
+        ],
+        "steps": [
+            {
+                "name": "VirtualMachineConfig",
+                "label": "Virtual Machine Settings",
+                "subLabel": {
+                    "preValidation": "Configure the virtual machine's resources and settings",
+                    "postValidation": "Done"
+                },
+                "bladeTitle": "Virtual Machine Settings",
+                "elements": [
+                    {
+                        "name": "OSVersion",
+                        "type": "Microsoft.Common.DropDown",
+                        "label": "Windows OS Version",
+                        "defaultValue": "tst",
+                        "toolTip": "The OS Version for the VM Image",
+                        "constraints": {
+                            "allowedValues": [
+                           
+                                {
+                                    "value": "2012-R2-Datacenter",
+                                    "label": "2012-R2-Datacenter"
+                                },
+                         
+                                {
+                                    "value": "acc",
+                                    "label": "acc"
+                                },
+                                {
+                                    "value": "tst",
+                                    "label": "tst"
+                                },
+                                {
+                                    "value": "poc",
+                                    "label": "poc"
+                                },
+       {
+                                    "value": "2019-Datacenter-Core-with-Containers",
+                                    "label": "2019-Datacenter-Core-with-Containers"
+                                }
+      
+                            ],
+                            "required": true
+                        },
+                        "visible": true
+                    },                
+                    {
+                        "name": "vmSize",
+                        "type": "Microsoft.Compute.SizeSelector",
+                        "label": "Virtual machine size",
+                        "toolTip": "The size of virtual machine to provision.",
+                        "recommendedSizes": [
+                            "Standard_B2ms"
+                            
+                        ],
+                        "osPlatform": "Windows",
+                        "count": "1"
+                    },
+                    {
+                        "name": "network",
+                        "type": "Microsoft.Network.VirtualNetworkCombo",
+                        "label": {
+                          "virtualNetwork": "Virtual network",
+                          "subnets": "Subnets"
+                        },
+                        "toolTip": {
+							"virtualNetwork": "Select the virtual network connected to the domain. If you do not, the virtual machines will be created but not joined to the domain and will not be able to receive connections.",
+							"subnets": "Select the subnet with available addresses to host the virtual machines."
+						},
+						"defaultValue": {
+							"name": "vnet-01",
+							"addressPrefixSize": "/24"
+						},
+						"constraints": {
+							"minAddressPrefixSize": "/30"
+						},
+						"options": {
+							"hideExisting": false
+						},
+						"subnets": {
+							"subnet1": {
+								"label": "vmSubnet",
+								"defaultValue": {
+									"name": "vmSubnet",
+									"addressPrefixSize": "/26"
+								},
+								"constraints": {
+									"minAddressPrefixSize": "/30",
+									"minAddressCount": "[max( mul(coalesce(steps('configureVirtualMachines').usageProfile.vmCountMultiplier, '0'),int(coalesce(steps('configureVirtualMachines').virtualMachineCount, '1'))), max(mul(basics('isPersonalDesktop').personalMultiplier, int(coalesce(steps('configureVirtualMachines').totalUsers,'1'))), mul( coalesce(steps('configureVirtualMachines').usageProfile.usageProfileMultiplier,'0'), div (sub (add( mul(int(  take(replace(replace(replace(replace(skip(replace(replace(replace(replace(replace(replace(steps('configureVirtualMachines').virtualMachineSize, 'Standard_', ''), 'Basic_', ''), '_' ,'  '), 'C', ''), 'V', ''), 'S', ''),1), 's', ' '), 'm', ' '), 'r', ' '), 'i', ' '),3)   ), coalesce(steps('configureVirtualMachines').usageProfile.value,'1') ), int(coalesce(steps('configureVirtualMachines').totalUsers,'1') )),1),   mul(int(  take(replace(replace(replace(replace(skip(replace(replace(replace(replace(replace(replace(steps('configureVirtualMachines').virtualMachineSize, 'Standard_', ''), 'Basic_', ''), '_' ,'  '), 'C', ''), 'V', ''), 'S', ''),1), 's', ' '), 'm', ' '), 'r', ' '), 'i', ' '),3)   ), coalesce(steps('configureVirtualMachines').usageProfile.value,'1') ))  )))]",
+									"requireContiguousAddresses": false
+								}
+							}
+						},
+						"visible": true
+                    },
+                    {
+						"name": "virtualNetworkError",
+						"type": "Microsoft.Common.InfoBox",
+						"visible": "[equals('new', steps('virtualMachineSettings').hostpoolVnet.newOrExisting)]",
+						"options": {
+						  "icon": "Error",
+						  "text": "You must select an existing virtual network."
+						}
+					}
+                ]
+            }
+        ],
+        "outputs": {
+            "location": "[location()]",
+            "application": "[basics('application')]",
+            "vmIndexNumber": "[basics('vmIndexNumber')]",
+            "environment": "[basics('environment')]",
+            "costcenter": "[basics('costcenter')]",
+            "adminUsername": "[basics('adminUsername')]",
+            "adminPassword": "[basics('password')]",
+            "vmSize": "[steps('VirtualMachineConfig').vmSize]",
+            "OSVersion": "[steps('VirtualMachineConfig').OSVersion]",
+			"existingVnetName": "[steps('VirtualMachineConfig').network.name]",
+			"existingSubnetName": "[steps('VirtualMachineConfig').network.subnets.subnet1.name]",
+			"virtualNetworkResourceGroupName": "[steps('VirtualMachineConfig').network.resourceGroup]"           
+    
+        }
+    }
+}

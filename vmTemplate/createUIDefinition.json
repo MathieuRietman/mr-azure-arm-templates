@@ -112,6 +112,7 @@
                 "name": "adminUsername",
                 "type": "Microsoft.Compute.UserNameTextBox",
                 "label": "Username",
+                "defaultValue": "azureadmin",
                 "toolTip": "Admin username for the machine",
                 "osPlatform": "Windows",
                 "constraints": {
@@ -199,11 +200,11 @@
                     {
                         "name": "network",
                         "type": "Microsoft.Network.VirtualNetworkCombo",
-                        "label": {
-                          "virtualNetwork": "Virtual network",
-                          "subnets": "Subnets"
-                        },
-                        "toolTip": {
+						"label": {
+							"virtualNetwork": "Virtual network",
+							"subnets": "Subnets"
+						},
+						"toolTip": {
 							"virtualNetwork": "Select the virtual network connected to the domain. If you do not, the virtual machines will be created but not joined to the domain and will not be able to receive connections.",
 							"subnets": "Select the subnet with available addresses to host the virtual machines."
 						},
@@ -226,17 +227,16 @@
 								},
 								"constraints": {
 									"minAddressPrefixSize": "/30",
-									"minAddressCount": "[max( mul(coalesce(steps('configureVirtualMachines').usageProfile.vmCountMultiplier, '0'),int(coalesce(steps('configureVirtualMachines').virtualMachineCount, '1'))), max(mul(basics('isPersonalDesktop').personalMultiplier, int(coalesce(steps('configureVirtualMachines').totalUsers,'1'))), mul( coalesce(steps('configureVirtualMachines').usageProfile.usageProfileMultiplier,'0'), div (sub (add( mul(int(  take(replace(replace(replace(replace(skip(replace(replace(replace(replace(replace(replace(steps('configureVirtualMachines').virtualMachineSize, 'Standard_', ''), 'Basic_', ''), '_' ,'  '), 'C', ''), 'V', ''), 'S', ''),1), 's', ' '), 'm', ' '), 'r', ' '), 'i', ' '),3)   ), coalesce(steps('configureVirtualMachines').usageProfile.value,'1') ), int(coalesce(steps('configureVirtualMachines').totalUsers,'1') )),1),   mul(int(  take(replace(replace(replace(replace(skip(replace(replace(replace(replace(replace(replace(steps('configureVirtualMachines').virtualMachineSize, 'Standard_', ''), 'Basic_', ''), '_' ,'  '), 'C', ''), 'V', ''), 'S', ''),1), 's', ' '), 'm', ' '), 'r', ' '), 'i', ' '),3)   ), coalesce(steps('configureVirtualMachines').usageProfile.value,'1') ))  )))]",
 									"requireContiguousAddresses": false
 								}
 							}
 						},
 						"visible": true
-                    },
+					},
                     {
 						"name": "virtualNetworkError",
 						"type": "Microsoft.Common.InfoBox",
-						"visible": "[equals('new', steps('virtualMachineSettings').hostpoolVnet.newOrExisting)]",
+						"visible": "[equals('new', steps('VirtualMachineConfig').network.newOrExisting)]",
 						"options": {
 						  "icon": "Error",
 						  "text": "You must select an existing virtual network."

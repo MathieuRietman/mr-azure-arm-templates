@@ -9,7 +9,6 @@
                 "type": "Microsoft.Common.TextBox",
                 "label": "Application name",
                 "toolTip": "The name of the application will be used i vmname.",
-                "defaultValue": "app1",
                 "constraints": {
                     "required": true,
                     "regex": "^[a-z0-9A-Z-]{3,15}$",

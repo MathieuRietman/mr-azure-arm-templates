@@ -30,13 +30,7 @@
         "costcenter": {
             "type": "String",
             "defaultValue": "exploitatie",
-            "allowedValues": [
-                "exploitatie",
-                "afdelingA",
-                "afdelingB",
-                "afdelingC"
-            ],
-            "metadata": {
+             "metadata": {
                 "description": "Selecteer juiste costcenter"
             }
 
@@ -65,17 +59,19 @@
                 "description": "Specifies the administrator username for the Virtual Machine."
             }
         },
-        "vmSize": {
-            "type": "string",
-            "defaultValue": "Standard_B2ms",
-            "metadata": {
-                "description": "The size of the virtual machine."
-            }
-        },
         "adminPassword": {
             "type": "securestring",
             "metadata": {
                 "description": "Specifies the administrator password for the Virtual Machine."
+            }
+        },
+            // better to have them point to keyvault in your template 
+            //# https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-use-key-vault#edit-the-parameters-file
+         "vmSize": {
+            "type": "string",
+            "defaultValue": "Standard_B2ms",
+            "metadata": {
+                "description": "The size of the virtual machine."
             }
         },
         "location": {
